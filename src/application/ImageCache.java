@@ -1,8 +1,5 @@
 package application;
 
-/**
- * Created by Nash on 08.11.2016.
- */
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import com.google.common.cache.CacheBuilder;

@@ -5,39 +5,39 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class Main extends Application {
     static Kinect kinect;
     static Controller controller;
-    static Window secondStage;
-    static Window thirdStage;
 
-    private static final int WIDTH = 1920;
-    private static final int HEIGHT = 1080;
 
     @Override
-    public void start(Stage firstStage) throws Exception{
+    public void start(Stage stage) throws Exception{
         //GUI
-        Parent root = FXMLLoader.load(getClass().getResource("firstStage.fxml"));
-        firstStage.setTitle("DattelVideo");
-        firstStage.setScene(new Scene(root, WIDTH, HEIGHT));
-        //firstStage.setFullScreen(true);
-        firstStage.setOnCloseRequest(event ->{
-            firstStage.close();
-//            secondStage.close();
-//            thirdStage.close();
+        Parent root = FXMLLoader.load(getClass().getResource("stage.fxml"));
+        stage.setTitle("DattelVideo");
+        Scene scene = new Scene(root, 1280+1920+1280 , 1200);
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
+        scene.setOnKeyPressed(e -> {
+            if(e.getCode()== KeyCode.ESCAPE) {
+                stage.close();
+                kinect.stop();
+                printDebug();
+            }
+        });
+        stage.setOnCloseRequest(event ->{
+            stage.close();
             kinect.stop();
             printDebug();
         });
-        secondStage = new Window(2, WIDTH, HEIGHT);
-        thirdStage = new Window(3, WIDTH, HEIGHT);
 
 
-        firstStage.show();
-//        secondStage.show();
-//        thirdStage.show();
+        stage.show();
         //Kinect
         initKinect();
 

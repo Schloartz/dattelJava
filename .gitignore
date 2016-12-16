@@ -49,9 +49,12 @@ Temporary Items
 # My Ignore Settings
 .idea/
 out/
+res/
 src/img/
 analyse.R
 analyse.txt
 .Rhistory
+*.jar
+*.dll
 
 
