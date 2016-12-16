@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.util.Pair;
+
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
@@ -40,7 +42,7 @@ public class Controller implements Initializable{
         img_left.addListener((observable, oldValue, newValue) -> {
             double mill = System.currentTimeMillis();
             try {
-                left.setImage(ImageCache.get((int)newValue));
+                left.setImage(ImageCache.get((new Pair<>("mix", (int) newValue))));
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
@@ -50,7 +52,7 @@ public class Controller implements Initializable{
         img_middle.addListener((observable, oldValue, newValue) -> {
             double mill = System.currentTimeMillis();
             try {
-                middle.setImage(ImageCache.get((int)newValue));
+                middle.setImage(ImageCache.get((new Pair<>("eat", (int) newValue))));
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
@@ -60,7 +62,7 @@ public class Controller implements Initializable{
         img_right.addListener((observable, oldValue, newValue) -> {
             double mill = System.currentTimeMillis();
             try {
-                right.setImage(ImageCache.get((int)newValue));
+                right.setImage(ImageCache.get((new Pair<>("go", (int) newValue))));
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
