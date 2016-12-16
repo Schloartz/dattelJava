@@ -12,8 +12,8 @@ class ImageCache{
 
     static {
         imgCache = CacheBuilder.newBuilder()
-                .maximumSize(100) //around 800mb
-                .expireAfterWrite(1, TimeUnit.MINUTES) //images are deleted from cache after 1 minute
+                .maximumSize(2000) //width*height*3 = 720*576*3 ~ 1.18mb; 1.18*2000 = 2.3GB
+                .expireAfterWrite(5, TimeUnit.MINUTES) //images are deleted from cache after 5 minutes
                 .build(
                         new CacheLoader<Integer, Image>() {
                             @Override

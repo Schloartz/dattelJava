@@ -6,14 +6,18 @@
 
 <?import javafx.scene.layout.HBox?>
 <HBox fx:controller="application.Controller" xmlns:fx="http://javafx.com/fxml" >
-    <ImageView fitWidth="1280" fitHeight="1024"><image><Image url="/img/image-110.jpg"/></image></ImageView>
+    <ImageView fx:id="left">
+        <Image url="/img/mix/mix-1.jpg"/>
+    </ImageView>
     <StackPane>
-        <ImageView fx:id="frame"><Image url="/img/image-1.jpg"/></ImageView>
+        <ImageView fx:id="middle"><Image url="/img/eat/eat-1.jpg"/></ImageView>
         <Label fx:id="coordsLabel" text="Starting..." prefWidth="300" prefHeight="400" textFill="#ffffff">
             <font>
                 <Font size="40"/>
             </font>
         </Label>
     </StackPane>
-    <ImageView fitWidth="1280" fitHeight="1024"><image><Image url="/img/image-44.jpg"/></image></ImageView>
+    <ImageView fx:id="right">
+        <Image url="/img/go/go-1.jpg"/>
+    </ImageView>
 </HBox>

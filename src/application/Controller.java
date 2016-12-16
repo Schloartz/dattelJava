@@ -16,11 +16,17 @@ public class Controller implements Initializable{
     @FXML
     private Label coordsLabel;
     @FXML
-    private ImageView frame;
+    private ImageView left, middle, right;
 
 
-    private IntegerProperty current_image = new SimpleIntegerProperty(0);
-    private static final int n_images = 216;
+    private IntegerProperty img_left = new SimpleIntegerProperty(0);
+    private IntegerProperty img_middle = new SimpleIntegerProperty(0);
+    private IntegerProperty img_right = new SimpleIntegerProperty(0);
+    //number of images
+    private static final int n_mix = 1840;
+    private static final int n_eat = 810;
+    private static final int n_go = 1200;
+
 
 
     private static final DecimalFormat df = new DecimalFormat("####0.00");
@@ -31,18 +37,35 @@ public class Controller implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Main.controller = this;
-        current_image.addListener((observable, oldValue, newValue) -> {
+        img_left.addListener((observable, oldValue, newValue) -> {
             double mill = System.currentTimeMillis();
             try {
-                frame.setImage(ImageCache.get((int)newValue));
-//                Main.secondStage.setImage(ImageCache.get((int)newValue));
-//                Main.thirdStage.setImage(ImageCache.get((int)newValue));
+                left.setImage(ImageCache.get((int)newValue));
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            System.out.println("img: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
+            System.out.println("left: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
             Main.kinect.img++;
-
+        });
+        img_middle.addListener((observable, oldValue, newValue) -> {
+            double mill = System.currentTimeMillis();
+            try {
+                middle.setImage(ImageCache.get((int)newValue));
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            System.out.println("middle: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
+            Main.kinect.img++;
+        });
+        img_right.addListener((observable, oldValue, newValue) -> {
+            double mill = System.currentTimeMillis();
+            try {
+                right.setImage(ImageCache.get((int)newValue));
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            System.out.println("right: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
+            Main.kinect.img++;
         });
     }
 
@@ -52,14 +75,29 @@ public class Controller implements Initializable{
         x = c[0];
         y = c[1];
         z = c[2];
-        int img = n_images - (int)((z-z_min)/(z_max-z_min)* n_images) + 1;
-        if(img<1){img=1;}
-        if(img>216){img=216;}
-        final int i = img;
+        //Mix
+        int i = n_mix - (int)((z-z_min)/(z_max-z_min)* n_mix) + 1;
+        if(i<1){i=1;}
+        if(i>n_mix){i=n_mix;}
+        final int mix = i;
+        //Eat
+        i = n_eat - (int)((z-z_min)/(z_max-z_min)* n_eat) + 1;
+        if(i<1){i=1;}
+        if(i>n_eat){i=n_eat;}
+        final int eat = i;
+        //Go
+        i = n_go - (int)((z-z_min)/(z_max-z_min)* n_go) + 1;
+        if(i<1){i=1;}
+        if(i>n_go){i=n_go;}
+        final int go = i;
+
+
         //GUI Updates
         Platform.runLater(()->{
-            current_image.setValue(i);
-            coordsLabel.setText("x: "+df.format(x)+"\ny: "+df.format(y)+"\nz: "+df.format(z)+"\nimg: "+i);
+            img_left.setValue(mix);
+            img_middle.setValue(eat);
+            img_right.setValue(go);
+            coordsLabel.setText("x: "+df.format(x)+"\ny: "+df.format(y)+"\nz: "+df.format(z)+"\nimg: "+mix+","+eat+","+go);
         });
     }
 }
