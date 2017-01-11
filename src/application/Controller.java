@@ -47,7 +47,7 @@ public class Controller implements Initializable{
                 e.printStackTrace();
             }
             System.out.println("left: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
-            Main.kinect.img++;
+            Main.kinect.img1++;
         });
         img_middle.addListener((observable, oldValue, newValue) -> {
             double mill = System.currentTimeMillis();
@@ -57,7 +57,7 @@ public class Controller implements Initializable{
                 e.printStackTrace();
             }
             System.out.println("middle: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
-            Main.kinect.img++;
+            Main.kinect.img2++;
         });
         img_right.addListener((observable, oldValue, newValue) -> {
             double mill = System.currentTimeMillis();
@@ -67,7 +67,7 @@ public class Controller implements Initializable{
                 e.printStackTrace();
             }
             System.out.println("right: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
-            Main.kinect.img++;
+            Main.kinect.img3++;
         });
     }
 

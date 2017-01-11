@@ -12,9 +12,10 @@ class Kinect extends J4KSDK{
     int color = 0;
     int skel = 0;
     int coordCalls = 0;
-    int img = 0;
+    int img1 = 0;
+    int img2 = 0;
+    int img3 = 0;
     double duration = 0;
-    double offset = 0;
 
     private static final int joint_tracked = Skeleton.HEAD; //possible 0-19(https://msdn.microsoft.com/en-us/library/microsoft.kinect.jointtype.aspx); 20-24 no info
     /*The constructor of the class initializes the native Kinect
@@ -49,7 +50,6 @@ class Kinect extends J4KSDK{
       into Skeleton objects.*/
     @Override
     public void onSkeletonFrameEvent(boolean[] skeleton_tracked, float[] joint_position, float[] joint_orientation, byte[] joint_status) {
-        offset = System.currentTimeMillis();
         skel++;
         Skeleton skeletons[]=new Skeleton[getMaxNumberOfSkeletons()];
         for(int i=0;i<getMaxNumberOfSkeletons();i++){

@@ -20,7 +20,7 @@ public class Main extends Application {
         //GUI
         Parent root = FXMLLoader.load(getClass().getResource("stage.fxml"));
         stage.setTitle("DattelVideo");
-        Scene scene = new Scene(root, 1280+1920+1280 , 1200);
+        Scene scene = new Scene(root, 720+720+720 , 576);
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);
         scene.setOnKeyPressed(e -> {
@@ -54,10 +54,12 @@ public class Main extends Application {
         double dur = (System.currentTimeMillis() - Main.kinect.duration)/1000;
         System.out.println("duration: "+dur);
         System.out.println("depth: "+Main.kinect.depth+" (fps: "+Main.kinect.depth/dur+")");
-        System.out.println("color: "+Main.kinect.color+" (fps: "+Main.kinect.color/dur+")");
+        //System.out.println("color: "+Main.kinect.color+" (fps: "+Main.kinect.color/dur+")");
         System.out.println("skel: "+Main.kinect.skel+" (fps: "+Main.kinect.skel/dur+")");
-        System.out.println("cccalls: "+Main.kinect.coordCalls+" (fps: "+Main.kinect.coordCalls/dur+")");
-        System.out.println("img: "+Main.kinect.img+" (fps: "+Main.kinect.img/dur+")");
+        //System.out.println("cccalls: "+Main.kinect.coordCalls+" (fps: "+Main.kinect.coordCalls/dur+")");
+        System.out.println("img1: "+Main.kinect.img1+" (fps: "+Main.kinect.img1/dur+")");
+        System.out.println("img2: "+Main.kinect.img2+" (fps: "+Main.kinect.img2/dur+")");
+        System.out.println("img3: "+Main.kinect.img3+" (fps: "+Main.kinect.img3/dur+")");
 
 
     }
