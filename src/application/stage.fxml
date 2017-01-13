@@ -11,7 +11,7 @@
     </ImageView>
     <StackPane>
         <ImageView fx:id="middle"><Image url="/img/eat/eat-1.jpg"/></ImageView>
-        <Label fx:id="coordsLabel" text="Starting..." prefWidth="300" prefHeight="400" textFill="#ffffff">
+        <Label fx:id="coordsLabel" text="Starting..." prefWidth="600" prefHeight="500" textFill="#ffffff">
             <font>
                 <Font size="40"/>
             </font>

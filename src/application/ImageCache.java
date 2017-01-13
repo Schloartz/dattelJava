@@ -9,27 +9,33 @@ import javafx.scene.image.Image;
 import javafx.util.Pair;
 
 class ImageCache{
-    private static LoadingCache<Pair<String,Integer>, Image> imgCache;
+    private static LoadingCache<Integer, Image> imgCache;
 
     static {
         imgCache = CacheBuilder.newBuilder()
                 .maximumSize(2000) //width*height*3 = 720*576*3 ~ 1.18mb; 1.18*2000 = 2.3GB
-                .expireAfterWrite(5, TimeUnit.MINUTES) //images are deleted from cache after 5 minutes
+                .expireAfterAccess(1, TimeUnit.MINUTES) //images are deleted from cache after 1 minute
                 .build(
-                        new CacheLoader<Pair<String,Integer>, Image>() {
+                        new CacheLoader<Integer, Image>() {
                             @Override
-                            public Image load(Pair<String,Integer> key) throws Exception {
-                                switch (key.getKey()){
-                                    case "mix": return new Image(getClass().getResourceAsStream("/img/mix/mix-"+key.getValue()+".jpg"));
-                                    case "eat": return new Image(getClass().getResourceAsStream("/img/eat/eat-"+key.getValue()+".jpg"));
-                                    default: return new Image(getClass().getResourceAsStream("/img/go/go-"+key.getValue()+".jpg"));
+                            public Image load(Integer key) throws Exception {
+                                if(key<10000) {
+                                    return new Image(getClass().getResourceAsStream("/img/mix/mix-" + key + ".jpg"));
+                                }else if(key<20000){
+                                    return new Image(getClass().getResourceAsStream("/img/eat/eat-"+(key-10000)+".jpg"));
+                                }else {
+                                    return new Image(getClass().getResourceAsStream("/img/go/go-"+(key-20000)+".jpg"));
                                 }
                             }
                         }
                 );
     }
 
-    static Image get(Pair<String,Integer> key) throws ExecutionException {
-        return imgCache.get(key);
+    static Image get(Integer key) throws ExecutionException {
+        try {
+            return imgCache.get(key);
+        }catch(java.lang.OutOfMemoryError e){
+            return null;
+        }
     }
 }
