@@ -58,8 +58,8 @@ public class Controller implements Initializable{
 //                e.printStackTrace();
 //            }
             left.setImage(new Image(getClass().getResourceAsStream("/img/mix/mix-" + newValue + ".jpg")));
-            //System.out.println("left: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
-            Main.kinect.img1++;
+            System.out.println("left: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
+            //Main.kinect.img1++;
         });
         img_middle.addListener((observable, oldValue, newValue) -> {
             double mill = System.currentTimeMillis();
@@ -69,8 +69,8 @@ public class Controller implements Initializable{
 //                e.printStackTrace();
 //            }
             middle.setImage(new Image(getClass().getResourceAsStream("/img/eat/eat-" + newValue + ".jpg")));
-            //System.out.println("middle: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
-            Main.kinect.img2++;
+            System.out.println("middle: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
+            //Main.kinect.img2++;
         });
         img_right.addListener((observable, oldValue, newValue) -> {
             double mill = System.currentTimeMillis();
@@ -80,13 +80,13 @@ public class Controller implements Initializable{
 //                e.printStackTrace();
 //            }
             right.setImage(new Image(getClass().getResourceAsStream("/img/go/go-" + newValue + ".jpg")));
-            //System.out.println("right: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
-            Main.kinect.img3++;
+            System.out.println("right: "+newValue+";"+"t: "+(System.currentTimeMillis()-mill));
+            //Main.kinect.img3++;
         });
     }
 
     void setCoords(double[] c){ //method gets called from kinect -> computes index of images to be displayed
-        Main.kinect.coordCalls++;
+        //Main.kinect.coordCalls++;
         double x,y,z;
         x = c[0]; //Weite (negativ/positiv)
         y = c[1]; //Höhe (negativ/positiv)

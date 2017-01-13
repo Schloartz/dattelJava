@@ -9,10 +9,14 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.Timer;
+
 
 public class Main extends Application {
-    static Kinect kinect;
+    private static Kinect kinect;
     static Controller controller;
+    private static Timer timer;
+    private static final boolean simulate_kinect = true; //whether the kinect is not available and therefore should be simulated
 
 
     @Override
@@ -26,20 +30,34 @@ public class Main extends Application {
         scene.setOnKeyPressed(e -> {
             if(e.getCode()== KeyCode.ESCAPE) {
                 stage.close();
-                kinect.stop();
-                printDebug();
+                if(!simulate_kinect){
+                    kinect.stop();
+                    printDebug();
+                }else{
+                    timer.cancel();
+                }
             }
         });
         stage.setOnCloseRequest(event ->{
             stage.close();
-            kinect.stop();
-            printDebug();
+            if(!simulate_kinect){
+                kinect.stop();
+                printDebug();
+            }else{
+                timer.cancel();
+            }
+
         });
-
-
         stage.show();
+
         //Kinect
-        initKinect();
+        if(!simulate_kinect){
+            initKinect();
+        }else{
+            //start kinect simulator
+            timer = new Timer();
+            timer.schedule(new KinectSimulator(),0,40); //~30fps
+        }
 
     }
 
@@ -60,8 +78,6 @@ public class Main extends Application {
         System.out.println("img1: "+Main.kinect.img1+" (fps: "+Main.kinect.img1/dur+")");
         System.out.println("img2: "+Main.kinect.img2+" (fps: "+Main.kinect.img2/dur+")");
         System.out.println("img3: "+Main.kinect.img3+" (fps: "+Main.kinect.img3/dur+")");
-
-
     }
 
     private static void initKinect(){
